@@ -1,3 +1,53 @@
+# Ignorer les fichiers temporaires et les artefacts de build
+bin/
+obj/
+
+# Ignorer les fichiers de configuration spécifiques à l'utilisateur
+*.user
+*.userosscache
+*.sln.docstates
+
+# Ignorer les fichiers de configuration de Rider
+.idea/
+*.iws
+*.rider/
+
+# Ignorer les fichiers de configuration de Visual Studio (si applicable)
+.vscode/
+.vs/
+
+# Ignorer les fichiers de cache et de log
+*.log
+*.cache
+
+# Ignorer les fichiers de package NuGet
+*.nuget/
+*.nuget.targets
+
+# Ignorer les fichiers de symboles
+*.pdb
+
+# Ignorer les fichiers de test
+*.tests.csproj
+
+# Ignorer les fichiers de configuration de Git
+.gitattributes
+.gitignore
+
+# Ignorer les fichiers de configuration de l'éditeur
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Ignorer les fichiers de configuration de l'éditeur de code
+*.vscode/
+
+# Ignorer les fichiers de configuration de l'éditeur de code
+*.vscode/
+
+# Ignorer les fichiers de configuration de l'éditeur de code
+*.vscode/
 bin/
 obj/
 /packages/
