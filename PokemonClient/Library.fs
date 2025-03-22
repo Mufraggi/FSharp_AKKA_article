@@ -5,9 +5,8 @@ open Thoth.Json.Net
 open Domain
 
 
-let setupHttpClient (client: HttpClient) (baseUrl: string) =
-    let callPokemonById (id: PokemonId) : Async<Result<Pokemon, string>> =
-        async {
+let fetchPokemon (client: HttpClient) (baseUrl: string) (id: PokemonId) : Async<Result<Pokemon, string>> =
+         async {
             let url = $"%s{baseUrl}/%d{id}"
 
             try
@@ -21,4 +20,4 @@ let setupHttpClient (client: HttpClient) (baseUrl: string) =
             | ex -> return Error(sprintf "Erreur inattendue : %s" ex.Message)
         }
 
-    callPokemonById
+
