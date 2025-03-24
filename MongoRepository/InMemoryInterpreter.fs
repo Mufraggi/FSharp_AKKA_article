@@ -1,13 +1,15 @@
 module MongoRepository.InMemoryInterpreter
 
 open System.Collections.Generic
+open MongoRepository.MongoInterpreter
 open MongoRepository.mapper
 
 type InMemoryInterpreter() =
     let db = new List<MongoPokemon>()
-
-    member _.Run(op: PokemonOp<'a>) : Async<'a> =
-        async {
+   
+    interface IPokemonInterpreter with
+        member _.Run(op: PokemonOp<'a>) : Async<'a> =
+            async {
             match op with
             | GetAll cont ->
                 return cont (List.ofSeq db |> List.map Mapping.toDomainPokemon)
