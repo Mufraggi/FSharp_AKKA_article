@@ -1,24 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
         <TargetFramework>net8.0</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Program.fs" />
+        <Compile Include="Library.fs"/>
+        <Compile Include="Messages.fs" />
+        <Compile Include="HttpActor.fs" />
+        <Compile Include="MongoActor.fs" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Akka" Version="1.5.40" />
+      <PackageReference Include="Akka.FSharp" Version="1.5.40" />
       <PackageReference Include="Akka.Hosting" Version="1.5.40" />
-      <PackageReference Include="MongoDB.Driver" Version="3.2.1" />
-      <PackageReference Include="System.Net.Http" Version="4.3.4" />
-      <PackageReference Include="Thoth.Json.Net" Version="12.0.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Actors\Actors.fsproj" />
       <ProjectReference Include="..\MongoRepository\MongoRepository.fsproj" />
       <ProjectReference Include="..\PokemonClient\PokemonClient.fsproj" />
     </ItemGroup>

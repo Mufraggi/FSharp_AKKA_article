@@ -7,11 +7,14 @@ type PokemonName = {
     en: string
     jp: string
 }
-
+type GmaxSprites = {
+    regular: string
+    shiny: string
+}
 type Sprites = {
     regular: string
     shiny: string
-    gmax: string option
+    gmax: GmaxSprites option
 }
 
 type tmp = {
@@ -49,8 +52,8 @@ type EvolutionStep = {
 }
 
 type Evolution = {
-    pre: EvolutionStep option
-    next: EvolutionStep list
+    pre: EvolutionStep list option  // Changé de 'EvolutionStep option' à 'EvolutionStep list option'
+    next: EvolutionStep list option
     mega: obj option // Utilisé 'obj' car le type exact n'est pas spécifié dans l'exemple
 }
 

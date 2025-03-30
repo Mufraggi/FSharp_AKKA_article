@@ -11,11 +11,18 @@ type MongoPokemonName = {
 }
 
 [<BsonIgnoreExtraElements>]
+type MongoGmaxSprites = {
+    [<BsonElement("regular")>] Regular: string
+    [<BsonElement("shiny")>] Shiny: string
+}
+
+[<BsonIgnoreExtraElements>]
 type MongoSprites = {
     [<BsonElement("regular")>] Regular: string
     [<BsonElement("shiny")>] Shiny: string
-    [<BsonElement("gmax")>] Gmax: string option
+    [<BsonElement("gmax")>] Gmax: MongoGmaxSprites option  // Changé de string option à MongoGmaxSprites option
 }
+
 
 [<BsonIgnoreExtraElements>]
 type MongoTmp = {
@@ -60,8 +67,8 @@ type MongoEvolutionStep = {
 
 [<BsonIgnoreExtraElements>]
 type MongoEvolution = {
-    [<BsonElement("pre")>] Pre: MongoEvolutionStep option
-    [<BsonElement("next")>] Next: MongoEvolutionStep list
+    [<BsonElement("pre")>] Pre: MongoEvolutionStep list option
+    [<BsonElement("next")>] Next: MongoEvolutionStep list option
     [<BsonElement("mega")>] Mega: BsonDocument option  // Utilisation de BsonDocument pour un objet dynamique
 }
 

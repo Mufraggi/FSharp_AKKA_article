@@ -26,12 +26,11 @@ type MongoInterpreter(client: MongoClient, config: MongoConfig) =
 
                 | GetById (id, cont) ->
                      try
-                        let filter = Builders.Filter.Eq("_id", id)
-                        let! mongoResult = collection.Find(filter).FirstOrDefaultAsync()
-                                           |> Async.AwaitTask 
-                        let result = Option.ofObj mongoResult
-                                     |> Option.map Mapping.toDomainPokemon
-                        return cont result
+                          let filter = Builders.Filter.Eq("_id", id)
+                          let! mongoResult = collection.Find(filter).FirstOrDefaultAsync() |> Async.AwaitTask
+                            // Utiliser Option.ofObj pour convertir un objet nullable en Option
+                          let result = Mapping.toDomainPokemon mongoResult  
+                          return cont  (Some result)
                      with
                         | :? System.FormatException -> return cont None
 

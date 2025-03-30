@@ -10,11 +10,22 @@ module Mapping =
     let toMongoPokemonName (pokemonName: PokemonName): MongoPokemonName =
         { Fr = pokemonName.fr; En = pokemonName.en; Jp = pokemonName.jp }
         
+    let toDomainGmaxSprites (mongoGmaxSprites: MongoGmaxSprites): GmaxSprites =
+        { regular = mongoGmaxSprites.Regular; shiny = mongoGmaxSprites.Shiny }
+        
+    let toMongoGmaxSprites (gmaxSprites: GmaxSprites): MongoGmaxSprites =
+        { Regular = gmaxSprites.regular; Shiny = gmaxSprites.shiny }
+        
+    // Mise à jour du mapper Sprites pour prendre en compte le nouveau type GmaxSprites
     let toDomainSprites (mongoSprites: MongoSprites): Sprites =
-        { regular = mongoSprites.Regular; shiny = mongoSprites.Shiny; gmax = mongoSprites.Gmax }
+        { regular = mongoSprites.Regular; 
+          shiny = mongoSprites.Shiny; 
+          gmax = mongoSprites.Gmax |> Option.map toDomainGmaxSprites }
         
     let toMongoSprites (sprites: Sprites): MongoSprites =
-        { Regular = sprites.regular; Shiny = sprites.shiny; Gmax = sprites.gmax }
+        { Regular = sprites.regular; 
+          Shiny = sprites.shiny; 
+          Gmax = sprites.gmax |> Option.map toMongoGmaxSprites }
         
     let toDomainTmp (mongoTmp: MongoTmp): tmp =
         { name = mongoTmp.Name; image = mongoTmp.Image }
@@ -55,13 +66,13 @@ module Mapping =
         { PokedexId = step.pokedex_id; Name = step.name; Condition = step.condition }
         
     let toDomainEvolution (mongoEvolution: MongoEvolution): Evolution =
-        { pre = mongoEvolution.Pre |> Option.map toDomainEvolutionStep;
-          next = mongoEvolution.Next |> List.map toDomainEvolutionStep;
+        { pre = mongoEvolution.Pre |> Option.map (List.map toDomainEvolutionStep);
+          next = mongoEvolution.Next |> Option.map (List.map toDomainEvolutionStep);
           mega = mongoEvolution.Mega |> Option.map (fun _ -> box()) }
         
     let toMongoEvolution (evolution: Evolution): MongoEvolution =
-        { Pre = evolution.pre |> Option.map toMongoEvolutionStep;
-          Next = evolution.next |> List.map toMongoEvolutionStep;
+        { Pre = evolution.pre |> Option.map (List.map toMongoEvolutionStep);
+          Next = evolution.next |> Option.map (List.map toMongoEvolutionStep);
           Mega = if evolution.mega.IsSome then Some(BsonDocument()) else None }
         
     let toDomainGender (mongoGender: MongoGender): Gender =
